@@ -1,39 +1,42 @@
 {
 	"name": "Spell",
 	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
-	"version": "0.0.1",
-	"private": "false",
 	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
-	"homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+	"icon": "images/spellIcon.svg",
+	"version": "1.0.0",
+	"publisher": "seanmcbreen",
+	"galleryBanner": {
+		"color": "#5c2d91",
+		"theme": "dark"
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
 	"bugs": {
-		"url": "https://github.com/CodeEditorLand/CodeEditorLand/issues",
+		"url": "https://github.com/Microsoft/vscode-spell-check/issues",
 		"email": "smcbreen@microsoft.com"
 	},
+	"homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+		"url": "https://github.com/Microsoft/vscode-spell-check.git"
 	},
-	"license": "MIT",
-	"author": {
-		"name": "Nikola Hristov",
-		"email": "nikola@nikolahristov.tech",
-		"url": "https://nikolahristov.tech"
+	"engines": {
+		"vscode": "^1.6.0"
 	},
-	"publisher": "playform",
-	"type": "module",
-	"main": "./out/extension",
-	"scripts": {
-		"compile": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"vscode:prepublish": "tsc -p ./"
-	},
+	"activationEvents": [
+		"*"
+	],
 	"contributes": {
 		"commands": [
 			{
 				"command": "SpellProvider.changeLanguage",
 				"title": "Change Language",
 				"category": "Spell Checker"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "editor.action.quickFix",
+				"key": "Alt+."
 			}
 		],
 		"configuration": {
@@ -45,40 +48,25 @@
 					"description": "Spell: Don't ask again for deprication warning"
 				}
 			}
-		},
-		"keybindings": [
-			{
-				"command": "editor.action.quickFix",
-				"key": "Alt+."
-			}
-		]
+		}
 	},
-	"activationEvents": [
-		"*"
-	],
+	"main": "./out/extension",
+	"scripts": {
+		"vscode:prepublish": "tsc -p ./",
+		"compile": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
 	"dependencies": {
-		"open": "9.1.0",
+		"teacher": "^0.1.0",
 		"request": "2.9.152",
-		"teacher": "0.1.0",
-		"xml2js": "0.6.2"
+		"xml2js": "0.1.13",
+		"open": "^0.0.5"
 	},
 	"devDependencies": {
-		"@types/mocha": "10.0.3",
-		"@types/node": "20.8.9",
-		"mocha": "10.2.0",
-		"typescript": "5.2.2",
-		"typescript-esbuild": "0.3.1",
-		"vscode": "1.0.0"
-	},
-	"engines": {
-		"vscode": "1.6.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"icon": "images/spellIcon.svg",
-	"galleryBanner": {
-		"color": "#5c2d91",
-		"theme": "dark"
+		"typescript": "^2.0.3",
+		"vscode": "^1.0.0",
+		"mocha": "^2.3.3",
+		"@types/node": "^6.0.40",
+		"@types/mocha": "^2.2.32"
 	}
 }
