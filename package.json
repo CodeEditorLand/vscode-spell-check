@@ -2,6 +2,7 @@
   "name": "Spell",
   "displayName": "[DEPRECATED] Spelling and Grammar Checker",
   "version": "0.0.1",
+  "private": "false",
   "description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
   "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
   "bugs": {
@@ -13,13 +14,19 @@
     "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
   },
   "license": "MIT",
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
+  },
   "publisher": "playform",
+  "type": "module",
   "main": "./out/extension",
   "scripts": {
     "compile": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "tsc -p ./",
-    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'"
+    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+    "vscode:prepublish": "tsc -p ./"
   },
   "contributes": {
     "commands": [
@@ -60,22 +67,15 @@
     "@types/node": "20.9.4",
     "mocha": "10.2.0",
     "typescript": "5.3.2",
-    "vscode": "1.0.0",
-    "typescript-esbuild": "0.3.1"
+    "typescript-esbuild": "0.3.1",
+    "vscode": "1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "icon": "images/spellIcon.svg",
   "galleryBanner": {
     "color": "#5c2d91",
     "theme": "dark"
-  },
-  "type": "module",
-  "private": "false",
-  "publishConfig": {
-    "access": "public"
-  },
-  "author": {
-    "name": "Nikola Hristov",
-    "email": "nikola@nikolahristov.tech",
-    "url": "https://nikolahristov.tech"
   }
 }
