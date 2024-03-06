@@ -57,7 +57,7 @@
     "*"
   ],
   "dependencies": {
-    "open": "0.0.5",
+    "open": "6.0.0",
     "request": "2.9.152",
     "teacher": "0.1.0",
     "xml2js": "0.1.13"
