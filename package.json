@@ -1,10 +1,24 @@
 {
-  "activationEvents": [
-    "*"
-  ],
+  "name": "Spell",
+  "displayName": "[DEPRECATED] Spelling and Grammar Checker",
+  "version": "1.0.0",
+  "description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
+  "homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
   "bugs": {
-    "email": "smcbreen@microsoft.com",
-    "url": "https://github.com/Microsoft/vscode-spell-check/issues"
+    "url": "https://github.com/Microsoft/vscode-spell-check/issues",
+    "email": "smcbreen@microsoft.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/vscode-spell-check.git"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "publisher": "seanmcbreen",
+  "main": "./out/extension",
+  "scripts": {
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "vscode:prepublish": "tsc -p ./"
   },
   "contributes": {
     "commands": [
@@ -31,13 +45,15 @@
       }
     ]
   },
+  "activationEvents": [
+    "*"
+  ],
   "dependencies": {
     "open": "0.0.5",
     "request": "2.9.152",
     "teacher": "0.1.0",
     "xml2js": "0.1.13"
   },
-  "description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
   "devDependencies": {
     "@types/mocha": "2.2.32",
     "@types/node": "6.0.40",
@@ -45,25 +61,9 @@
     "typescript": "2.0.3",
     "vscode": "1.0.0"
   },
-  "displayName": "[DEPRECATED] Spelling and Grammar Checker",
+  "icon": "images/spellIcon.svg",
   "galleryBanner": {
     "color": "#5c2d91",
     "theme": "dark"
-  },
-  "homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
-  "icon": "images/spellIcon.svg",
-  "license": "SEE LICENSE IN LICENSE.txt",
-  "main": "./out/extension",
-  "name": "Spell",
-  "publisher": "seanmcbreen",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Microsoft/vscode-spell-check.git"
-  },
-  "scripts": {
-    "compile": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "tsc -p ./"
-  },
-  "version": "1.0.0"
+  }
 }
