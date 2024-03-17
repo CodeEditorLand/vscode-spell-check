@@ -1,69 +1,72 @@
 {
-  "name": "Spell",
-  "displayName": "[DEPRECATED] Spelling and Grammar Checker",
-  "version": "1.0.0",
-  "description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
-  "homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
-  "bugs": {
-    "url": "https://github.com/Microsoft/vscode-spell-check/issues",
-    "email": "smcbreen@microsoft.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Microsoft/vscode-spell-check.git"
-  },
-  "license": "SEE LICENSE IN LICENSE.txt",
-  "publisher": "seanmcbreen",
-  "main": "./out/extension",
-  "scripts": {
-    "compile": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "tsc -p ./"
-  },
-  "contributes": {
-    "commands": [
-      {
-        "category": "Spell Checker",
-        "command": "SpellProvider.changeLanguage",
-        "title": "Change Language"
-      }
-    ],
-    "configuration": {
-      "properties": {
-        "spell.StopAsking": {
-          "default": false,
-          "description": "Spell: Don't ask again for deprication warning",
-          "type": "boolean"
-        }
-      },
-      "title": "Spell options"
-    },
-    "keybindings": [
-      {
-        "command": "editor.action.quickFix",
-        "key": "Alt+."
-      }
-    ]
-  },
-  "activationEvents": [
-    "*"
-  ],
-  "dependencies": {
-    "open": "0.0.5",
-    "request": "2.9.152",
-    "teacher": "0.1.0",
-    "xml2js": "0.1.13"
-  },
-  "devDependencies": {
-    "@types/mocha": "2.2.32",
-    "@types/node": "6.0.40",
-    "mocha": "2.3.3",
-    "typescript": "2.0.3",
-    "vscode": "1.0.0"
-  },
-  "icon": "images/spellIcon.svg",
-  "galleryBanner": {
-    "color": "#5c2d91",
-    "theme": "dark"
-  }
+	"name": "Spell",
+	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
+	"version": "1.0.0",
+	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
+	"homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
+	"bugs": {
+		"url": "https://github.com/Microsoft/vscode-spell-check/issues",
+		"email": "smcbreen@microsoft.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-spell-check.git"
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"publisher": "seanmcbreen",
+	"main": "./out/extension",
+	"scripts": {
+		"compile": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"vscode:prepublish": "tsc -p ./"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "SpellProvider.changeLanguage",
+				"title": "Change Language",
+				"category": "Spell Checker"
+			}
+		],
+		"configuration": {
+			"title": "Spell options",
+			"properties": {
+				"spell.StopAsking": {
+					"type": "boolean",
+					"default": false,
+					"description": "Spell: Don't ask again for deprication warning"
+				}
+			}
+		},
+		"keybindings": [
+			{
+				"command": "editor.action.quickFix",
+				"key": "Alt+."
+			}
+		]
+	},
+	"activationEvents": [
+		"*"
+	],
+	"dependencies": {
+		"open": "^0.0.5",
+		"request": "2.9.152",
+		"teacher": "^0.1.0",
+		"xml2js": "0.1.13"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.32",
+		"@types/node": "^6.0.40",
+		"mocha": "^2.3.3",
+		"typescript": "^2.0.3",
+		"vscode": "^1.0.0"
+	},
+	"engines": {
+		"vscode": "^1.6.0"
+	},
+	"icon": "images/spellIcon.svg",
+	"galleryBanner": {
+		"color": "#5c2d91",
+		"theme": "dark"
+	}
 }
