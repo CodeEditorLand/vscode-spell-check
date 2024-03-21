@@ -65,7 +65,7 @@
 		"@types/node": "20.11.30",
 		"mocha": "10.3.0",
 		"typescript": "5.4.2",
-		"typescript-esbuild": "latest",
+		"typescript-esbuild": "0.4.5",
 		"vscode": "1.0.0"
 	},
 	"publishConfig": {
