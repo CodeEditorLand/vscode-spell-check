@@ -1,0 +1,78 @@
+{
+	"name": "Spell",
+	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
+	"version": "0.0.1",
+	"private": false,
+	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
+	"keywords": [
+		"land"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandSpellCheck#readme",
+	"bugs": {
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandSpellCheck/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandSpellCheck.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"type": "module",
+	"main": "./out/extension",
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"compile": "tsc -watch -p ./",
+		"prepublishOnly": "Build 'Source/**/*.ts'"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"category": "Spell Checker",
+				"command": "SpellProvider.changeLanguage",
+				"title": "Change Language"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"spell.StopAsking": {
+					"default": false,
+					"description": "Spell: Don't ask again for deprication warning",
+					"type": "boolean"
+				}
+			},
+			"title": "Spell options"
+		},
+		"keybindings": [
+			{
+				"command": "editor.action.quickFix",
+				"key": "Alt+."
+			}
+		]
+	},
+	"activationEvents": [
+		"*"
+	],
+	"dependencies": {
+		"open": "10.1.0",
+		"request": "2.9.152",
+		"teacher": "0.1.0",
+		"xml2js": "0.6.2"
+	},
+	"devDependencies": {
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6",
+		"@types/node": "20.12.7"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"icon": "images/spellIcon.svg",
+	"galleryBanner": {
+		"color": "#5c2d91",
+		"theme": "dark"
+	}
+}
