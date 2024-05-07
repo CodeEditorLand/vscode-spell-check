@@ -52,6 +52,7 @@ export class Delayer<T> {
 		if (!this.completionPromise) {
 			return null;
 		}
+
 		this.cancelTimeout();
 		let result = this.completionPromise;
 		this.onSuccess(null);
