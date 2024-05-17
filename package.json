@@ -1,27 +1,7 @@
 {
 	"name": "Spell",
 	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
-	"version": "0.0.1",
-	"private": false,
 	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandSpellCheck#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandSpellCheck/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandSpellCheck.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
 	"main": "./out/extension",
 	"scripts": {
 		"Document": "Document 'Source/**/*.ts'",
@@ -64,11 +44,7 @@
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/node": "20.12.10"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"icon": "images/spellIcon.svg",
 	"galleryBanner": {
