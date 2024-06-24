@@ -35,13 +35,13 @@
 		"*"
 	],
 	"dependencies": {
-		"open": "^0.0.5",
+		"open": "^10.1.0",
 		"request": "2.9.152",
 		"teacher": "^0.1.0",
-		"xml2js": "0.1.13"
+		"xml2js": "0.6.2"
 	},
 	"devDependencies": {
-		"@types/node": "^6.0.40"
+		"@types/node": "^20.14.8"
 	},
 	"icon": "images/spellIcon.svg",
 	"galleryBanner": {
