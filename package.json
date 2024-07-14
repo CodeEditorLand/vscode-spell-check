@@ -1,11 +1,7 @@
 {
-	"name": "Spell",
-	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
-	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
-	"main": "./out/extension",
-	"scripts": {
-		"compile": "tsc -watch -p ./"
-	},
+	"activationEvents": [
+		"*"
+	],
 	"contributes": {
 		"commands": [
 			{
@@ -31,21 +27,25 @@
 			}
 		]
 	},
-	"activationEvents": [
-		"*"
-	],
 	"dependencies": {
 		"open": "^0.0.5",
 		"request": "2.9.152",
 		"teacher": "^0.1.0",
 		"xml2js": "0.1.13"
 	},
+	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
 	"devDependencies": {
 		"@types/node": "^6.0.40"
 	},
-	"icon": "images/spellIcon.svg",
+	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
 	"galleryBanner": {
 		"color": "#5c2d91",
 		"theme": "dark"
+	},
+	"icon": "images/spellIcon.svg",
+	"main": "./out/extension",
+	"name": "Spell",
+	"scripts": {
+		"compile": "tsc -watch -p ./"
 	}
 }
