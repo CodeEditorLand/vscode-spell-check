@@ -35,7 +35,7 @@
 	},
 	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
 	"devDependencies": {
-		"@types/node": "22.0.2"
+		"@types/node": "22.1.0"
 	},
 	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
 	"galleryBanner": {
