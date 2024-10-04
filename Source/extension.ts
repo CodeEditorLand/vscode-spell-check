@@ -1,7 +1,8 @@
-'use strict'
+"use strict";
 
-import * as vscode from 'vscode';
-import SpellProvider from './features/spellProvider';
+import * as vscode from "vscode";
+
+import SpellProvider from "./features/spellProvider";
 
 export function activate(context: vscode.ExtensionContext): void {
 	let linter = new SpellProvider();
