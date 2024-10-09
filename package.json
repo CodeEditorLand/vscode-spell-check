@@ -28,14 +28,14 @@
 		]
 	},
 	"dependencies": {
-		"open": "^10.1.0",
+		"open": "10.1.0",
 		"request": "2.88.2",
-		"teacher": "^0.1.0",
+		"teacher": "0.1.0",
 		"xml2js": "0.6.2"
 	},
 	"description": "[DEPRECATED] Web service is no longer active - Try `Code Spellchecker`.  See README for details.",
 	"devDependencies": {
-		"@types/node": "^22.7.5"
+		"@types/node": "22.7.5"
 	},
 	"displayName": "[DEPRECATED] Spelling and Grammar Checker",
 	"galleryBanner": {
