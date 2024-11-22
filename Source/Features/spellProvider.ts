@@ -33,13 +33,19 @@ interface Map<V> {
 }
 
 let problems: SpellProblem[] = [];
+
 let settings: SpellSettings;
+
 let diagnosticMap = {};
+
 let spellDiagnostics: vscode.DiagnosticCollection;
+
 let CONFIGFOLDER = "/.vscode";
+
 let CONFIGFILE = "/spell.json";
 
 let statusBarItem: vscode.StatusBarItem;
+
 let IsDisabled: boolean = false;
 
 enum upgradeAction {
@@ -92,16 +98,20 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 							open(
 								"https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker",
 							);
+
 							break;
+
 						case upgradeAction.Stop:
 							config.update("StopAsking", true, true);
 							console.log("Wrote setting...");
+
 							break;
 					}
 				});
 		}
 
 		let subscriptions: vscode.Disposable[] = context.subscriptions;
+
 		let toggleCmd: vscode.Disposable;
 
 		vscode.commands.registerCommand(
@@ -177,6 +187,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 	public toggleSpell() {
 		if (IsDisabled) {
 			IsDisabled = false;
+
 			if (vscode.window.activeTextEditor) {
 				this.TriggerDiagnostics(
 					vscode.window.activeTextEditor.document,
@@ -184,6 +195,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			}
 		} else {
 			IsDisabled = true;
+
 			if (DEBUG)
 				console.log("Clearing diagnostics as Spell was disabled.");
 			spellDiagnostics.clear();
@@ -221,6 +233,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		let match: string[] = diagnostic.message.match(
 			/\[([a-zA-Z0-9\ ]+)\]\ \-/,
 		);
+
 		let error: string = "";
 
 		// should always be true
@@ -230,6 +243,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 		// Get suggestions from suggestion string
 		match = diagnostic.message.match(/\[([a-zA-Z0-9,\ ]+)\]$/);
+
 		let suggestionstring: string = "";
 
 		let commands: vscode.Command[] = [];
@@ -265,6 +279,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		if (settings.languageIDs.indexOf(document.languageId) === -1) {
 			// if(DEBUG) console.log("Hiding status due to language ID [" + document.languageId + "]");
 			// //statusBarItem.hide();
+
 			return;
 		} else {
 			this.updateStatus();
@@ -293,6 +308,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 	// Itterate through the errors and populate the diagnostics
 	private CreateDiagnostics(document: vscode.TextDocument) {
 		let diagnostics: vscode.Diagnostic[] = [];
+
 		let docToCheck = document.getText();
 
 		if (DEBUG)
@@ -307,6 +323,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 		// removeUnwantedText before processing the spell checker ignores a lot of chars so removing them aids in problem matching
 		docToCheck = this.removeUnwantedText(docToCheck);
+
 		docToCheck = docToCheck.replace(
 			/[\"!#$%&()*+,.\/:;<=>?@\[\]\\^_{|}]/g,
 			" ",
@@ -324,6 +341,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 							problem.endLine,
 							problem.endChar,
 						);
+
 						let loc = new vscode.Location(document.uri, lineRange);
 
 						let diag = new vscode.Diagnostic(
@@ -349,6 +367,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				console.log(
 					"Word is not found in current dictionary -> adding",
 				);
+
 			settings.ignoreWordsList.push(word);
 			this.writeSettings();
 		}
@@ -358,6 +377,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 	private writeSettings(): void {
 		try {
 			fs.mkdirSync(vscode.workspace.rootPath + CONFIGFOLDER);
+
 			if (DEBUG)
 				console.log("Created new settings folder: " + CONFIGFOLDER);
 			vscode.window.showInformationMessage(
@@ -373,6 +393,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			vscode.workspace.rootPath + CONFIGFOLDER + CONFIGFILE,
 			JSON.stringify(settings, null, 2),
 		);
+
 		if (DEBUG) console.log("Settings written to: " + CONFIGFILE);
 	}
 
@@ -384,12 +405,14 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 	): any {
 		if (DEBUG)
 			console.log("Attempting to fix file:" + document.uri.toString());
+
 		let docError: string = document.getText(diagnostic.range);
 
 		if (error == docError) {
 			// Remove diagnostic from list
 			let diagnostics: vscode.Diagnostic[] =
 				diagnosticMap[document.uri.toString()];
+
 			let index: number = diagnostics.indexOf(diagnostic);
 
 			diagnostics.splice(index, 1);
@@ -401,6 +424,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			// Insert the new text
 			let edit = new vscode.WorkspaceEdit();
 			edit.replace(document.uri, diagnostic.range, suggestion);
+
 			return vscode.workspace.applyEdit(edit);
 		} else {
 			vscode.window.showErrorMessage(
@@ -416,8 +440,10 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 		function readJsonFile(file): any {
 			let cfg;
+
 			try {
 				cfg = JSON.parse(fs.readFileSync(file).toString());
+
 				if (DEBUG) console.log("Settings read from: " + file);
 			} catch (err) {
 				if (DEBUG) console.log("Default Settings");
@@ -451,7 +477,9 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 			//gracefully handle new fields
 			if (cfg.languageIDs === undefined) cfg.languageIDs = ["markdown"];
+
 			if (cfg.language === undefined) cfg.language = "en";
+
 			if (cfg.ignoreRegExp === undefined) cfg.ignoreRegExp = [];
 
 			return cfg;
@@ -472,12 +500,16 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		switch (mistakeTypeToStatus[mistakeType]) {
 			case "Warning":
 				return vscode.DiagnosticSeverity.Warning;
+
 			case "Information":
 				return vscode.DiagnosticSeverity.Information;
+
 			case "Error":
 				return vscode.DiagnosticSeverity.Error;
+
 			case "Hint":
 				return vscode.DiagnosticSeverity.Hint;
+
 			default:
 				return -1; // used for 'Disabled' or no setting
 		}
@@ -489,6 +521,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		cb: (report: SpellProblem[]) => void,
 	): void {
 		let problemMessage: string;
+
 		let detectedErrors: any = {};
 
 		callATD.check(
@@ -496,17 +529,23 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			content,
 			function (error, docProblems) {
 				if (error != null) console.log(error);
+
 				if (docProblems != null) {
 					for (let i = 0; i < docProblems.length; i++) {
 						let problem = docProblems[i];
+
 						let problemTXT = problem.string;
+
 						let problemPreContext: string =
 							typeof problem.precontext !== "object"
 								? problem.precontext + " "
 								: "";
+
 						let problemWithPreContent: string =
 							problemPreContext + problemTXT;
+
 						let problemSuggestions: string[] = [];
+
 						let startPosInFile: number = -1;
 
 						// Check to see if this error has been seen before for improved uniqueness
@@ -530,11 +569,13 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 							let linesToMistake: String[] = content
 								.substring(0, startPosInFile)
 								.split("\n");
+
 							let numberOfLinesToMistake: number =
 								linesToMistake.length - 1;
 
 							if (!detectedErrors[problemWithPreContent])
 								detectedErrors[problemWithPreContent] = 1;
+
 							else ++detectedErrors[problemWithPreContent];
 
 							// make the suggestions an array even if only one is returned
@@ -542,6 +583,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 								if (Array.isArray(problem.suggestions.option))
 									problemSuggestions =
 										problem.suggestions.option;
+
 								else
 									problemSuggestions = [
 										problem.suggestions.option,
@@ -578,15 +620,19 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 		function nthOccurrence(content, problem, preContext, occuranceNo) {
 			let firstIndex = -1;
+
 			let regex = new RegExp(preContext + "[ ]*" + problem, "g");
+
 			let m = regex.exec(content);
 
 			if (m !== null) {
 				let matchTXT = m[0];
 				// adjust for any precontent and padding
 				firstIndex = m.index + m[0].match(/^\s*/)[0].length;
+
 				if (preContext !== "") {
 					let regex2 = new RegExp(preContext + "[ ]*", "g");
+
 					let m2 = regex2.exec(matchTXT);
 					firstIndex += m2[0].length;
 				}
@@ -599,6 +645,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			} else {
 				let stringAfterFirstOccurrence =
 					content.slice(lengthUpToFirstIndex);
+
 				let nextOccurrence = nthOccurrence(
 					stringAfterFirstOccurrence,
 					problem,
@@ -617,22 +664,26 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 	private removeUnwantedText(content: string): string {
 		let match;
+
 		let expressions = settings.ignoreRegExp;
 
 		for (let x = 0; x < expressions.length; x++) {
 			// Convert the JSON of regExp Strings into a real RegExp
 			let flags = expressions[x].replace(/.*\/([gimy]*)$/, "$1");
+
 			let pattern = expressions[x].replace(
 				new RegExp("^/(.*?)/" + flags + "$"),
 				"$1",
 			);
 
 			pattern = pattern.replace(/\\\\/g, "\\");
+
 			let regex = new RegExp(pattern, flags);
 
 			if (DEBUG) console.log("Ignoreing [" + expressions[x] + "]");
 
 			match = content.match(regex);
+
 			if (match !== null) {
 				if (DEBUG)
 					console.log(
@@ -641,6 +692,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				// look for a multi line match and build enough lines into the replacement
 				for (let i = 0; i < match.length; i++) {
 					let spaces: string;
+
 					let lines = match[i].split("\n").length;
 
 					if (lines > 1) {
@@ -663,11 +715,15 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		items.push({ label: getLanguageDescription("de"), description: "de" });
 		items.push({ label: getLanguageDescription("pt"), description: "pt" });
 		items.push({ label: getLanguageDescription("es"), description: "es" });
+
 		let index: number;
+
 		for (let i = 0; i < items.length; i++) {
 			let element = items[i];
+
 			if (element.description == settings.language) {
 				index = i;
+
 				break;
 			}
 		}
@@ -678,6 +734,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			if (!selection) return;
 
 			settings.language = selection.description;
+
 			if (DEBUG)
 				console.log("Attempting to change to: " + settings.language);
 			this.writeSettings();
@@ -692,14 +749,19 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			switch (initial) {
 				case "en":
 					return "English";
+
 				case "fr":
 					return "French";
+
 				case "de":
 					return "German";
+
 				case "pt":
 					return "Portuguese";
+
 				case "es":
 					return "Spanish";
+
 				default:
 					return "English";
 			}

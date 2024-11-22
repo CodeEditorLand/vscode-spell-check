@@ -24,6 +24,7 @@ export class Delayer<T> {
 		delay: number = this.defaultDelay,
 	): Promise<T> {
 		this.task = task;
+
 		if (delay >= 0) {
 			this.cancelTimeout();
 		}
@@ -34,8 +35,10 @@ export class Delayer<T> {
 			}).then(() => {
 				this.completionPromise = null;
 				this.onSuccess = null;
+
 				var result = this.task();
 				this.task = null;
+
 				return result;
 			});
 		}
@@ -58,8 +61,10 @@ export class Delayer<T> {
 			return null;
 		}
 		this.cancelTimeout();
+
 		let result = this.completionPromise;
 		this.onSuccess(null);
+
 		return result;
 	}
 
