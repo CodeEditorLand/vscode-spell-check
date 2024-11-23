@@ -575,7 +575,6 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 							if (!detectedErrors[problemWithPreContent])
 								detectedErrors[problemWithPreContent] = 1;
-
 							else ++detectedErrors[problemWithPreContent];
 
 							// make the suggestions an array even if only one is returned
@@ -583,7 +582,6 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 								if (Array.isArray(problem.suggestions.option))
 									problemSuggestions =
 										problem.suggestions.option;
-
 								else
 									problemSuggestions = [
 										problem.suggestions.option,
