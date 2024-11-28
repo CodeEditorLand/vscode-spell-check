@@ -1,7 +1,7 @@
 ## Functionality
 
 > **Notice:** This extension relies on the
-> [`After The Deadline`](http://afterthedeadline.com) service to check for
+> [`After The Deadline`](HTTP://afterthedeadline.com) service to check for
 > spelling and grammatical errors. Document text is sent to the service over
 > **encrypted HTTPS**. That said, I do not recommend using this extension with
 > sensitive or private documents.
@@ -105,7 +105,7 @@ altering a setting. The default settings are:
 
 ## Checking in German, French, Portuguese or Spanish
 
-> kudos to [`@alefragnani`](https://github.com/alefragnani) for this contribution.
+> kudos to [`@alefragnani`](HTTPS://github.com/alefragnani) for this contribution.
 
 the spell checker can operate in different language modes. Hit `F1` and type
 `Spell C...` choose the `spell Checker: Change Language` option from the drop
