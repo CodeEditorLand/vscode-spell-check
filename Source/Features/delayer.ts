@@ -6,16 +6,23 @@ export interface ITask<T> {
 
 export class Delayer<T> {
 	public defaultDelay: number;
+
 	private timeout: any; // Timer
 	private completionPromise: Promise<T>;
+
 	private onSuccess: (value?: T | Thenable<T>) => void;
+
 	private task: ITask<T>;
 
 	constructor(defaultDelay: number) {
 		this.defaultDelay = defaultDelay;
+
 		this.timeout = null;
+
 		this.completionPromise = null;
+
 		this.onSuccess = null;
+
 		this.task = null;
 	}
 
@@ -34,9 +41,11 @@ export class Delayer<T> {
 				this.onSuccess = resolve;
 			}).then(() => {
 				this.completionPromise = null;
+
 				this.onSuccess = null;
 
 				var result = this.task();
+
 				this.task = null;
 
 				return result;
@@ -47,6 +56,7 @@ export class Delayer<T> {
 			this.timeout = setTimeout(
 				() => {
 					this.timeout = null;
+
 					this.onSuccess(null);
 				},
 				delay >= 0 ? delay : this.defaultDelay,
@@ -60,9 +70,11 @@ export class Delayer<T> {
 		if (!this.completionPromise) {
 			return null;
 		}
+
 		this.cancelTimeout();
 
 		let result = this.completionPromise;
+
 		this.onSuccess(null);
 
 		return result;
@@ -74,12 +86,14 @@ export class Delayer<T> {
 
 	public cancel(): void {
 		this.cancelTimeout();
+
 		this.completionPromise = null;
 	}
 
 	private cancelTimeout(): void {
 		if (this.timeout !== null) {
 			clearTimeout(this.timeout);
+
 			this.timeout = null;
 		}
 	}

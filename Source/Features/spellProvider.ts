@@ -10,21 +10,33 @@ let DEBUG: boolean = false;
 
 interface SpellSettings {
 	language: string;
+
 	ignoreWordsList: string[];
+
 	mistakeTypeToStatus: {}[];
+
 	languageIDs: string[];
+
 	ignoreRegExp: string[];
 }
 
 interface SpellProblem {
 	error: string;
+
 	preContext: string;
+
 	startLine: number;
+
 	startChar: number;
+
 	endLine: number;
+
 	endChar: number;
+
 	type: string;
+
 	message: string;
+
 	suggestions: string[];
 }
 
@@ -62,12 +74,16 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 	private static addToDictionaryCmdId: string =
 		"SpellProvider.addToDictionary";
+
 	private static fixOnSuggestionCmdId: string =
 		"SpellProvider.fixOnSuggestion";
+
 	private static changeLanguageCmdId: string = "SpellProvider.changeLanguage";
 
 	private addToDictionaryCmd: vscode.Disposable;
+
 	private fixOnSuggestionCmd: vscode.Disposable;
+
 	private changeLanguageCmd: vscode.Disposable;
 
 	public activate(context: vscode.ExtensionContext) {
@@ -95,6 +111,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 					switch (selection && selection.id) {
 						case upgradeAction.Search:
 							var open = require("open");
+
 							open(
 								"https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker",
 							);
@@ -103,6 +120,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 						case upgradeAction.Stop:
 							config.update("StopAsking", true, true);
+
 							console.log("Wrote setting...");
 
 							break;
@@ -118,12 +136,16 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			"toggleSpell",
 			this.toggleSpell.bind(this),
 		);
+
 		statusBarItem = vscode.window.createStatusBarItem(
 			vscode.StatusBarAlignment.Left,
 		);
+
 		statusBarItem.command = "toggleSpell";
+
 		statusBarItem.tooltip =
 			"Toggle Spell Checker On/Off for supported files";
+
 		statusBarItem.show();
 
 		settings = this.readSettings();
@@ -132,10 +154,12 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			SpellProvider.addToDictionaryCmdId,
 			this.addToDictionary.bind(this),
 		);
+
 		this.fixOnSuggestionCmd = vscode.commands.registerCommand(
 			SpellProvider.fixOnSuggestionCmdId,
 			this.fixOnSuggestion.bind(this),
 		);
+
 		this.changeLanguageCmd = vscode.commands.registerCommand(
 			SpellProvider.changeLanguageCmdId,
 			this.changeLanguage.bind(this),
@@ -150,16 +174,19 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			this,
 			subscriptions,
 		);
+
 		vscode.workspace.onDidChangeTextDocument(
 			this.TriggerDiffDiagnostics,
 			this,
 			subscriptions,
 		);
+
 		vscode.workspace.onDidSaveTextDocument(
 			this.TriggerDiagnostics,
 			this,
 			subscriptions,
 		);
+
 		vscode.workspace.onDidCloseTextDocument(
 			(textDocument) => {
 				spellDiagnostics.delete(textDocument.uri);
@@ -177,6 +204,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				console.log(
 					"Code Actons Registering for: " + settings.languageIDs[i],
 				);
+
 			vscode.languages.registerCodeActionsProvider(
 				settings.languageIDs[i],
 				this,
@@ -198,27 +226,36 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 			if (DEBUG)
 				console.log("Clearing diagnostics as Spell was disabled.");
+
 			spellDiagnostics.clear();
 		}
+
 		this.updateStatus();
 	}
 
 	public updateStatus() {
 		if (IsDisabled) {
 			statusBarItem.text = `$(book) Spell Disabled [${settings.language}]`;
+
 			statusBarItem.color = "orange";
 		} else {
 			statusBarItem.text = `$(book) Spell Enabled [${settings.language}]`;
+
 			statusBarItem.color = "white";
 		}
 	}
 
 	public dispose(): void {
 		spellDiagnostics.clear();
+
 		spellDiagnostics.dispose();
+
 		statusBarItem.dispose();
+
 		this.addToDictionaryCmd.dispose();
+
 		this.fixOnSuggestionCmd.dispose();
+
 		this.changeLanguageCmd.dispose();
 	}
 
@@ -292,10 +329,13 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 		if (!d) {
 			d = new Delayer<any>(150);
+
 			this.validationDelayer[document.uri.toString()] = d;
 		}
+
 		d.trigger(() => {
 			this.CreateDiagnostics(document);
+
 			delete this.validationDelayer[document.uri.toString()];
 		});
 	}
@@ -319,6 +359,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 					document.languageId +
 					"]",
 			);
+
 		problems = [];
 
 		// removeUnwantedText before processing the spell checker ignores a lot of chars so removing them aids in problem matching
@@ -349,11 +390,14 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 							problem.message,
 							this.convertSeverity(problem.type),
 						);
+
 						diagnostics.push(diag);
 					}
 				}
 			}
+
 			spellDiagnostics.set(document.uri, diagnostics);
+
 			diagnosticMap[document.uri.toString()] = diagnostics;
 		});
 	}
@@ -369,8 +413,10 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				);
 
 			settings.ignoreWordsList.push(word);
+
 			this.writeSettings();
 		}
+
 		this.TriggerDiagnostics(document);
 	}
 
@@ -380,6 +426,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 			if (DEBUG)
 				console.log("Created new settings folder: " + CONFIGFOLDER);
+
 			vscode.window.showInformationMessage(
 				"SPELL: Created a new settings file: " +
 					CONFIGFOLDER +
@@ -389,6 +436,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 			if (DEBUG)
 				console.log("Folder for settings existed: " + CONFIGFOLDER);
 		}
+
 		fs.writeFileSync(
 			vscode.workspace.rootPath + CONFIGFOLDER + CONFIGFILE,
 			JSON.stringify(settings, null, 2),
@@ -419,10 +467,12 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 			// Update with new diagnostics
 			diagnosticMap[document.uri.toString()] = diagnostics;
+
 			spellDiagnostics.set(document.uri, diagnostics);
 
 			// Insert the new text
 			let edit = new vscode.WorkspaceEdit();
+
 			edit.replace(document.uri, diagnostic.range, suggestion);
 
 			return vscode.workspace.applyEdit(edit);
@@ -447,6 +497,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				if (DEBUG) console.log("Settings read from: " + file);
 			} catch (err) {
 				if (DEBUG) console.log("Default Settings");
+
 				cfg = JSON.parse(
 					'{\
                                 "version": "0.1.0", \
@@ -575,6 +626,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 							if (!detectedErrors[problemWithPreContent])
 								detectedErrors[problemWithPreContent] = 1;
+
 							else ++detectedErrors[problemWithPreContent];
 
 							// make the suggestions an array even if only one is returned
@@ -582,6 +634,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 								if (Array.isArray(problem.suggestions.option))
 									problemSuggestions =
 										problem.suggestions.option;
+
 								else
 									problemSuggestions = [
 										problem.suggestions.option,
@@ -611,6 +664,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 							});
 						}
 					}
+
 					cb(problems);
 				}
 			},
@@ -632,6 +686,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 					let regex2 = new RegExp(preContext + "[ ]*", "g");
 
 					let m2 = regex2.exec(matchTXT);
+
 					firstIndex += m2[0].length;
 				}
 			}
@@ -698,10 +753,12 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 					} else {
 						spaces = new Array(match[i].length + 1).join(" ");
 					}
+
 					content = content.replace(match[i], spaces);
 				}
 			}
 		}
+
 		return content;
 	}
 
@@ -709,9 +766,13 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 		let items: vscode.QuickPickItem[] = [];
 
 		items.push({ label: getLanguageDescription("en"), description: "en" });
+
 		items.push({ label: getLanguageDescription("fr"), description: "fr" });
+
 		items.push({ label: getLanguageDescription("de"), description: "de" });
+
 		items.push({ label: getLanguageDescription("pt"), description: "pt" });
+
 		items.push({ label: getLanguageDescription("es"), description: "es" });
 
 		let index: number;
@@ -725,6 +786,7 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 				break;
 			}
 		}
+
 		items.splice(index, 1);
 
 		// replace the text with the selection
@@ -735,7 +797,9 @@ export default class SpellProvider implements vscode.CodeActionProvider {
 
 			if (DEBUG)
 				console.log("Attempting to change to: " + settings.language);
+
 			this.writeSettings();
+
 			vscode.window.showInformationMessage(
 				"To start checking in " +
 					getLanguageDescription(settings.language) +
