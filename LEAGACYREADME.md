@@ -105,7 +105,7 @@ altering a setting. The default settings are:
 
 ## Checking in German, French, Portuguese or Spanish
 
-> kudos to [`@alefragnani`](HTTPS://github.com/alefragnani) for this contribution.
+> kudos to [`@alefragnani`](https://github.com/alefragnani) for this contribution.
 
 the spell checker can operate in different language modes. Hit `F1` and type
 `Spell C...` choose the `spell Checker: Change Language` option from the drop
