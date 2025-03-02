@@ -6,8 +6,8 @@
 > **encrypted HTTPS**. That said, I do not recommend using this extension with
 > sensitive or private documents.
 
-Load up a Markdown or PlainText file [or additional file types you
-have configured in the config file] and get highlights and hovers for issues.
+Load up a Markdown or PlainText file [or additional file types you have
+configured in the config file] and get highlights and hovers for issues.
 Checking will occur as you type and the extension will highlight spelling
 mistakes and optionally grammatical errors. Once enabled you will see an
 indicator in the `status bar`, the `problems - error & warning lists` as well as
@@ -36,15 +36,15 @@ over an issue.
 The extension is capable of detecting a broad array of problems. You can choose
 how these map to VS Code diagnostic types.
 
--   `Disable`: No checking will be provided for this type of problem **this is
-    the default**
--   `Error`: A red underline will be rendered - these can get in the way for
-    smoothly running a debug session
--   `Warning`: A green underline will be rendered where the error is.
--   `Information`: An information list is available in the status bar (no
-    underlines).
--   `Hint`: A hover with the error details will pop-up when you mouse over the
-    error.
+- `Disable`: No checking will be provided for this type of problem **this is the
+  default**
+- `Error`: A red underline will be rendered - these can get in the way for
+  smoothly running a debug session
+- `Warning`: A green underline will be rendered where the error is.
+- `Information`: An information list is available in the status bar (no
+  underlines).
+- `Hint`: A hover with the error details will pop-up when you mouse over the
+  error.
 
 This is the settings that are applied unless you override them in your own
 custom `spell.json` file.
@@ -105,7 +105,8 @@ altering a setting. The default settings are:
 
 ## Checking in German, French, Portuguese or Spanish
 
-> kudos to [`@alefragnani`](https://github.com/alefragnani) for this contribution.
+> kudos to [`@alefragnani`](https://github.com/alefragnani) for this
+> contribution.
 
 the spell checker can operate in different language modes. Hit `F1` and type
 `Spell C...` choose the `spell Checker: Change Language` option from the drop
@@ -129,12 +130,12 @@ version of the file with the defaults will be created for you.
 
 the config file has the following sections/capabilities:
 
--   `ignoreWordsList` an array of strings that represents words not to check.
--   `ignoreRegExp` an array of regular expressions for text to not check.
--   `mistakeTypeToStatus` we detect many error types and this is how they map to
-    VS Code Diagnostics.
--   `language` change the dictionary to use e.g. French.
--   `languageIDs` configure more file types to check
+- `ignoreWordsList` an array of strings that represents words not to check.
+- `ignoreRegExp` an array of regular expressions for text to not check.
+- `mistakeTypeToStatus` we detect many error types and this is how they map to
+  VS Code Diagnostics.
+- `language` change the dictionary to use e.g. French.
+- `languageIDs` configure more file types to check
 
 Here is the complete default set of configuration options:
 
